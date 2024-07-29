@@ -2,6 +2,7 @@
 
 import { Suspense, useCallback, useEffect, useRef, useState } from 'react';
 import { Thumbnail } from '../thumbnail';
+import debounce from 'debounce';
 
 type Props = {
   videoUrl: string;
@@ -11,11 +12,10 @@ export const Preview = ({ videoUrl, thumbnailUrl }: Props) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [canPlayVideo, setCanPlayVideo] = useState(false);
 
-  const handleMouseEnter = () => {
-    setTimeout(() => setCanPlayVideo(true), 500);
-  };
+  const debounceSet = debounce(() => setCanPlayVideo(true), 200);
 
   const handleMouseLeave = () => {
+    debounceSet.clear();
     setCanPlayVideo(false);
   };
 
@@ -23,7 +23,6 @@ export const Preview = ({ videoUrl, thumbnailUrl }: Props) => {
     if (!videoRef.current) return;
 
     try {
-      console.log('playing video');
       await videoRef.current.play();
     } catch (error) {
       console.error('Error playing video', error);
@@ -54,7 +53,7 @@ export const Preview = ({ videoUrl, thumbnailUrl }: Props) => {
 
   return (
     <div
-      onMouseEnter={handleMouseEnter}
+      onMouseOver={debounceSet.trigger}
       onMouseLeave={handleMouseLeave}
       className="delay-50 flex flex-col rounded-lg p-2 transition ease-in-out hover:cursor-pointer hover:bg-slate-800"
     >
@@ -63,7 +62,6 @@ export const Preview = ({ videoUrl, thumbnailUrl }: Props) => {
         <video
           ref={videoRef}
           preload="none"
-          onPlaying={() => console.log('playing')}
           muted
           playsInline
           className="h-[14rem] w-[26rem] rounded-lg object-cover sm:h-[14rem] sm:w-[26rem] md:h-[12rem] md:w-[24rem] lg:h-[11rem] lg:w-[20rem]"
