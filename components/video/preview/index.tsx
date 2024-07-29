@@ -55,7 +55,7 @@ export const Preview = ({ videoUrl, thumbnailUrl }: Props) => {
     <div
       onMouseOver={debounceSet.trigger}
       onMouseLeave={handleMouseLeave}
-      className="delay-50 flex flex-col rounded-lg p-2 transition ease-in-out hover:cursor-pointer hover:bg-slate-800"
+      className="delay-50 flex flex-col rounded-lg transition ease-in-out hover:cursor-pointer hover:bg-slate-800 md:p-2"
     >
       {/* TODO: add proper skeleton loading */}
       <Suspense fallback={<div>Loading...</div>}>
@@ -64,7 +64,7 @@ export const Preview = ({ videoUrl, thumbnailUrl }: Props) => {
           preload="none"
           muted
           playsInline
-          className="h-[14rem] w-[26rem] rounded-lg object-cover sm:h-[14rem] sm:w-[26rem] md:h-[12rem] md:w-[24rem] lg:h-[11rem] lg:w-[20rem]"
+          className="h-[14rem] w-[21rem] rounded-lg object-cover sm:h-[14rem] sm:w-[21rem] md:h-[12rem] md:w-[24rem] lg:h-[11rem] lg:w-[20rem]"
           autoPlay={false}
         >
           <source src={videoUrl} type="video/mp4" />

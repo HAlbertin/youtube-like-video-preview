@@ -24,7 +24,7 @@ export const Thumbnail = ({ className, thumbnailUrl, alt }: Props) => {
       width={416}
       height={224}
       className={twMerge(
-        'delay-10 duration-50 absolute inline-block h-[14rem] w-[26rem] rounded-lg object-cover opacity-100 transition-all duration-300 ease-[cubic-bezier(.05,0,0,1)] sm:h-[14rem] sm:w-[26rem] md:h-[12rem] md:w-[24rem] lg:h-[11rem] lg:w-[20rem]',
+        'delay-10 duration-50 absolute inline-block h-[14rem] w-[21rem] rounded-lg object-cover opacity-100 transition-all duration-300 ease-[cubic-bezier(.05,0,0,1)] sm:h-[14rem] sm:w-[21rem] md:h-[12rem] md:w-[24rem] lg:h-[11rem] lg:w-[20rem]',
         className,
       )}
       onError={onError}
