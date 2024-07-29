@@ -6,12 +6,6 @@
   --header-height: 4rem;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-}
-
 * {
   box-sizing: border-box;
   margin: 0;
