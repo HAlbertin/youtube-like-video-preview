@@ -4,6 +4,7 @@ import { Suspense, useCallback, useEffect, useRef, useState } from 'react';
 import { Thumbnail } from '../thumbnail';
 import debounce from 'debounce';
 import { ProgressBar } from '../progress-bar';
+import { Time } from '../time';
 
 type Props = {
   videoUrl: string;
@@ -106,10 +107,14 @@ export const Preview = ({ videoUrl, thumbnailUrl }: Props) => {
           </video>
 
           {canPlayVideo && (
-            <ProgressBar
-              progress={progress}
-              onProgressUpdate={onManualProgressUpdate}
-            />
+            <>
+              <Time currentTime={videoRef.current?.currentTime || 0} />
+
+              <ProgressBar
+                progress={progress}
+                onProgressUpdate={onManualProgressUpdate}
+              />
+            </>
           )}
         </div>
 
