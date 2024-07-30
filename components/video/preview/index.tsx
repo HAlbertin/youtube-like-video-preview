@@ -1,88 +1,66 @@
 'use client';
 
-import { Suspense, useCallback, useEffect, useRef, useState } from 'react';
+import { memo, Suspense, useCallback, useRef, useState } from 'react';
 import { Thumbnail } from '../thumbnail';
-import debounce from 'debounce';
+
 import { ProgressBar } from '../progress-bar';
 import { Time } from '../time';
+import {
+  convertPercentageProgressToTime,
+  convertVideoDurationToPercentageProgress,
+} from '@/utils/time';
+import { useVideo } from '@/hooks/use-video';
 
 type Props = {
   videoUrl: string;
   thumbnailUrl: string;
 };
-export const Preview = ({ videoUrl, thumbnailUrl }: Props) => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [canPlayVideo, setCanPlayVideo] = useState(false);
+export const Preview = memo(({ videoUrl, thumbnailUrl }: Props) => {
+  const { canPlayVideo, cannotPlayVideo, debounceSet, videoRef } = useVideo();
 
+  // Track if the progress was updated manually
   const manualUpdated = useRef(false);
   const latestProgress = useRef(0);
 
+  // Track the progress to set into the progress bar
   const [progress, setProgress] = useState(0);
-
-  const debounceSet = debounce(() => setCanPlayVideo(true), 200);
 
   const handleMouseLeave = () => {
     debounceSet.clear();
-    setCanPlayVideo(false);
+    cannotPlayVideo();
   };
-
-  const playVideo = useCallback(async () => {
-    if (!videoRef.current) return;
-
-    try {
-      manualUpdated.current &&
-        (videoRef.current.currentTime = latestProgress.current);
-      await videoRef.current.play();
-    } catch (error) {
-      console.error('Error playing video', error);
-    }
-  }, []);
-
-  const pauseVideo = useCallback(() => {
-    if (!videoRef.current) return;
-
-    try {
-      videoRef.current.pause();
-      videoRef.current.removeAttribute('src');
-      videoRef.current.load();
-    } catch (error) {
-      console.error('Error pausing video', error);
-    }
-  }, []);
 
   const onTimeUpdate = useCallback(() => {
     if (!videoRef.current) return;
 
-    const currentProgress =
-      (videoRef.current.currentTime / videoRef.current.duration) * 100;
+    const currentProgress = convertVideoDurationToPercentageProgress(
+      videoRef.current.currentTime,
+      videoRef.current.duration,
+    );
 
     setProgress(currentProgress);
 
+    // Avoid saving 0 when video is being unloaded (e.g. mouse leave)
     if (videoRef.current.currentTime > 0)
       latestProgress.current = videoRef.current.currentTime;
-  }, []);
+  }, [videoRef]);
 
-  const onManualProgressUpdate = useCallback((newProgress: number) => {
-    if (!videoRef.current) return;
+  const onManualProgressUpdate = useCallback(
+    (newProgress: number) => {
+      if (!videoRef.current) return;
 
-    const newTime = (newProgress / 100) * videoRef.current.duration;
-    videoRef.current.currentTime = newTime;
-    setProgress(newProgress);
+      const newTime = convertPercentageProgressToTime(
+        newProgress,
+        videoRef.current.duration,
+      );
+      videoRef.current.currentTime = newTime;
+      latestProgress.current = newTime;
+      manualUpdated.current = true;
 
-    latestProgress.current = videoRef.current.currentTime;
-    manualUpdated.current = true;
-  }, []);
-
-  useEffect(() => {
-    if (!videoRef.current) return;
-
-    if (canPlayVideo) {
-      playVideo();
-      return;
-    }
-
-    pauseVideo();
-  }, [canPlayVideo, pauseVideo, playVideo]);
+      setProgress(newProgress);
+    },
+    [videoRef],
+  );
 
   return (
     <div
@@ -126,4 +104,6 @@ export const Preview = ({ videoUrl, thumbnailUrl }: Props) => {
       </Suspense>
     </div>
   );
-};
+});
+
+Preview.displayName = 'Preview';
