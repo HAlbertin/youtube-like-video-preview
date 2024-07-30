@@ -1,6 +1,9 @@
 # Youtube-like Preview List
 Youtube-like Preview List in [React 18](https://react.dev/) with [TypeScript](https://www.typescriptlang.org/) using the [Next.js](https://nextjs.org/) framework.
 
+## Preview
+Deployed using [Vercel](https://vercel.com/), the running live project can be acessed **[here](https://youtube-like-video-preview.vercel.app/)**.
+
 ## How to Run
 #### System Requirements
 - [Node.js 18.17](https://nodejs.org/en) or later
@@ -44,8 +47,9 @@ yarn dev
 ## Next Steps
 - Add Icon
 - Add Favicon
-- Add Unit Testing
-- Add e2e Testing
+- Add Unit Testing: (Vitest)[https://vitest.dev/] for example
+- Add e2e Testing: (Playwright)[https://playwright.dev/] for example
+- Add Observability: [Sentry](https://sentry.io/) for example
 - Add .env variables
 - Enable CI/CD: [GitHub Actions](https://github.com/features/actions) for example
 - I left some "TODOs" in the code
