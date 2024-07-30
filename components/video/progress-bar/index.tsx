@@ -1,6 +1,7 @@
 import { getProgressFromEvent } from '@/utils/time';
 import debounce from 'debounce';
 import { useState } from 'react';
+import { twMerge } from 'tailwind-merge';
 
 type Props = {
   progress: number;
@@ -34,14 +35,14 @@ export const ProgressBar = ({ onProgressUpdate, progress }: Props) => {
           style={{ width: `${progress}%` }}
         />
       </div>
-
       {/* TODO: Add a MouseMove for better experience */}
-      {showTrackBall && (
-        <div
-          className="absolute -bottom-3 h-4 w-4 -translate-y-1/2 transform rounded-full bg-primary-color z-50"
-          style={{ left: `calc(${progress}% - 8px)` }}
-        />
-      )}
+      <div
+        className={twMerge(
+          'opacity-0 absolute -bottom-3 h-4 w-4 -translate-y-1/2 transform rounded-full bg-primary-color z-50 transition-opacity duration-300 ease-[cubic-bezier(.05,0,0,1)]',
+          showTrackBall && 'opacity-100',
+        )}
+        style={{ left: `calc(${progress}% - 8px)` }}
+      />
     </div>
   );
 };
