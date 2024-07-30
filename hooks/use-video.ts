@@ -3,25 +3,43 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 /**
  * Hook responsible for handling video playback.
+ * @param onVideoStart - Callback to be called when the video starts playing.
+ * @param onVideoResume - Callback to be called when the video resumes playing.
  */
-export const useVideo = () => {
+type Props = Partial<{
+  onVideoStart?: () => void;
+  onVideoResume?: () => void;
+}>;
+
+export const useVideo = ({ onVideoStart, onVideoResume }: Props) => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const latestProgress = useRef(0);
   const [canPlayVideo, setCanPlayVideo] = useState(false);
 
   const debounceSet = debounce(() => setCanPlayVideo(true), 200);
   const cannotPlayVideo = () => setCanPlayVideo(false);
 
-  const playVideo = useCallback(async (startPosition?: number) => {
-    try {
-      if (!videoRef.current) return;
+  const playVideo = useCallback(
+    async (startPosition?: number) => {
+      try {
+        if (!videoRef.current) return;
 
-      if (startPosition) videoRef.current.currentTime = startPosition;
+        if (startPosition) {
+          videoRef.current.currentTime = startPosition;
+          // Callback video resume
+          onVideoResume && onVideoResume();
+        }
 
-      await videoRef.current.play();
-    } catch (error) {
-      console.error('Error playing video', error);
-    }
-  }, []);
+        await videoRef.current.play();
+
+        // Callback video start (only if there aren't manually set start position)
+        !startPosition && onVideoStart && onVideoStart();
+      } catch (error) {
+        console.error('Error playing video', error);
+      }
+    },
+    [onVideoResume, onVideoStart],
+  );
 
   const pauseVideo = useCallback(() => {
     try {
@@ -37,7 +55,7 @@ export const useVideo = () => {
   useEffect(() => {
     if (!videoRef.current) return;
 
-    canPlayVideo ? playVideo() : pauseVideo();
+    canPlayVideo ? playVideo(latestProgress.current) : pauseVideo();
   }, [canPlayVideo, pauseVideo, playVideo]);
 
   return {
@@ -46,5 +64,7 @@ export const useVideo = () => {
     setCanPlayVideo,
     debounceSet,
     cannotPlayVideo,
+    latestProgress,
+    playVideo,
   };
 };
