@@ -1,3 +1,4 @@
+import { logError } from '@/utils/log';
 import debounce from 'debounce';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
@@ -43,7 +44,7 @@ export const useVideo = ({ onVideoStart, onVideoResume }: Props) => {
         // Callback video start (only if there aren't manually set start position)
         !startPosition && onVideoStart && onVideoStart();
       } catch (error) {
-        console.error('Error playing video', error);
+        logError(error as Error);
       }
     },
     [onVideoResume, onVideoStart],
@@ -56,7 +57,7 @@ export const useVideo = ({ onVideoStart, onVideoResume }: Props) => {
       videoRef.current.removeAttribute('src');
       videoRef.current.load();
     } catch (error) {
-      console.error('Error pausing video', error);
+      logError(error as Error);
     }
   }, []);
 

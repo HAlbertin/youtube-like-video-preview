@@ -6,6 +6,7 @@ import { MOCK_VIDEOS } from '@/mock';
 export default function Home() {
   return (
     <div className="mt-[--header-height] flex flex-row flex-wrap justify-center gap-2 p-5 lg:justify-start">
+      {/* TODO: we can have a calc here to check how many videos we can show per row, but it's not necessary right now */}
       {MOCK_VIDEOS.map((video) => (
         // TODO: we can implement each callback with proper functions
         <VideoPlayer

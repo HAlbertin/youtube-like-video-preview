@@ -1,5 +1,6 @@
 'use client';
 
+import { logError } from '@/utils/log';
 import Image from 'next/image';
 import { useState } from 'react';
 import { twMerge } from 'tailwind-merge';
@@ -20,7 +21,7 @@ export const Thumbnail = ({
   const [src, setSrc] = useState(thumbnailUrl);
 
   const onError = () => {
-    console.error(`Error loading image: ${thumbnailUrl}`);
+    logError(new Error(`Error loading image: ${thumbnailUrl}`));
     setSrc(fallbackUrl ?? '/images/placeholder.jpg');
   };
 
