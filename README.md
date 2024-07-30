@@ -28,6 +28,7 @@ yarn dev
 - Fetching & Caching
   - [Fetch (extends the native Web fetch)](https://nextjs.org/docs/app/api-reference/functions/fetch)
   - [React-Query](https://react-query.tanstack.com/)
+  - [Either Strategy (Based)](https://gcanti.github.io/fp-ts/modules/Either.ts.html)
 - Images
   - [SVGR](https://react-svgr.com/docs/next/)
 - Code Helpers (for re-render, comparison, etc)
@@ -47,8 +48,8 @@ yarn dev
 ## Next Steps
 - Add Icon
 - Add Favicon
-- Add Unit Testing: (Vitest)[https://vitest.dev/] for example
-- Add e2e Testing: (Playwright)[https://playwright.dev/] for example
+- Add Unit Testing: [Vitest](https://vitest.dev/) for example
+- Add e2e Testing: [Playwright](https://playwright.dev/) for example
 - Add Observability: [Sentry](https://sentry.io/) for example
 - Add .env variables
 - Enable CI/CD: [GitHub Actions](https://github.com/features/actions) for example
