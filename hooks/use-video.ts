@@ -14,6 +14,9 @@ type Props = Partial<{
 export const useVideo = ({ onVideoStart, onVideoResume }: Props) => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
+  // Based on: https://github.com/facebook/react/issues/10389#issuecomment-1601018277
+  const isMutedRef = useRef(true);
+
   // Track the latest progress to resume the video from the same position
   const latestProgress = useRef(0);
   // Track if the progress was updated manually
@@ -74,5 +77,6 @@ export const useVideo = ({ onVideoStart, onVideoResume }: Props) => {
     latestProgress,
     playVideo,
     manualUpdated,
+    isMutedRef,
   };
 };

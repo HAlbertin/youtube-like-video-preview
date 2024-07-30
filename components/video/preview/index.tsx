@@ -11,6 +11,7 @@ import {
 } from '@/utils/time';
 import { useVideo } from '@/hooks/use-video';
 import { twMerge } from 'tailwind-merge';
+import { Sound } from '../sound';
 
 type Props = {
   videoUrl: string;
@@ -36,6 +37,7 @@ export const Preview = memo(
       videoRef,
       manualUpdated,
       latestProgress,
+      isMutedRef,
     } = useVideo({
       onVideoStart,
       onVideoResume,
@@ -96,6 +98,12 @@ export const Preview = memo(
       [latestProgress, onVideoSeek],
     );
 
+    const onSoundClick = () => {
+      if (!videoRef.current) return;
+
+      videoRef.current.muted = !videoRef.current.muted;
+    };
+
     return (
       <div
         onMouseOver={debounceSet.trigger}
@@ -109,7 +117,7 @@ export const Preview = memo(
               ref={videoRef}
               onTimeUpdate={onTimeUpdate}
               preload="none"
-              muted
+              muted={isMutedRef.current}
               playsInline
               className="h-[14rem] w-[21rem] rounded-lg object-cover sm:h-[14rem] sm:w-[21rem] md:h-[12rem] md:w-[24rem] lg:h-[11rem] lg:w-[20rem]"
               autoPlay={false}
@@ -121,6 +129,8 @@ export const Preview = memo(
 
             {canPlayVideo && (
               <>
+                <Sound muted={videoRef.current?.muted} onClick={onSoundClick} />
+
                 <Time currentTime={videoRef.current?.currentTime || 0} />
 
                 <ProgressBar

@@ -21,7 +21,7 @@ export const Thumbnail = ({
 
   const onError = () => {
     console.error(`Error loading image: ${thumbnailUrl}`);
-    setSrc(fallbackUrl ?? '/placeholder.jpg');
+    setSrc(fallbackUrl ?? '/images/placeholder.jpg');
   };
 
   return (

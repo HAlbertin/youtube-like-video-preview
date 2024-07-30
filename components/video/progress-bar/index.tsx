@@ -21,8 +21,7 @@ export const ProgressBar = ({ onProgressUpdate, progress }: Props) => {
         style={{ width: `${progress}%` }}
       />
       <div
-        className="absolute bottom-0 left-0 top-0 h-full w-full cursor-pointer" // Clickable area
-        style={{ zIndex: 1 }}
+        className="absolute bottom-0 left-0 top-0 z-10 h-full w-full cursor-pointer" // Clickable area
       />
 
       {/* TODO: add a track ball, need to fix because it's too far to the right, needs to center */}
