@@ -7,6 +7,10 @@ import { Thumbnail } from '../thumbnail';
 
 type Props = InteractiveProps | StaticProps;
 
+/**
+ * Video Player component that can be used in interactive (preview video) or static mode (only thumbnails)
+ * TODO: VideoPlayer is not a good name for now, we can rename it to VideoCard or something else
+ */
 export const VideoPlayer = (props: Props) => {
   const { mode, thumbnailUrl, title, author, views, uploadTime, videoUrl } =
     props;
