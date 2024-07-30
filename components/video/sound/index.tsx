@@ -17,7 +17,6 @@ export const Sound = ({ onClick, muted = true }: Props) => {
   return (
     <div
       onClick={onIconClick}
-      onTouchEnd={onIconClick}
       style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
       className="absolute bottom-12 right-2 z-10 flex h-8 w-8 items-center rounded-full p-2"
     >
