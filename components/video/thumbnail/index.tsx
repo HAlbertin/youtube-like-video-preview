@@ -29,6 +29,7 @@ export const Thumbnail = ({
     <Image
       src={src}
       alt={alt}
+      loading="lazy"
       quality={75}
       width={416}
       height={224}

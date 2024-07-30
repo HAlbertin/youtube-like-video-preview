@@ -30,6 +30,9 @@ export const Preview = memo(
     onVideoResume,
     onVideoSeek,
   }: Props) => {
+    // Track the progress to set into the progress bar
+    const [progress, setProgress] = useState(0);
+
     const {
       canPlayVideo,
       cannotPlayVideo,
@@ -43,10 +46,7 @@ export const Preview = memo(
       onVideoResume,
     });
 
-    // Track the progress to set into the progress bar
-    const [progress, setProgress] = useState(0);
-
-    const handleMouseLeave = () => {
+    const onMouseLeave = () => {
       debounceSet.clear();
       cannotPlayVideo();
     };
@@ -107,47 +107,55 @@ export const Preview = memo(
     return (
       <div
         onMouseOver={debounceSet.trigger}
-        onMouseLeave={handleMouseLeave}
+        onMouseLeave={onMouseLeave}
         className="flex flex-col rounded-lg md:p-2"
       >
         {/* TODO: add proper skeleton loading */}
         <Suspense fallback={<div>Loading...</div>}>
-          <div className="relative">
-            <video
-              ref={videoRef}
-              onTimeUpdate={onTimeUpdate}
-              preload="none"
-              muted={isMutedRef.current}
-              playsInline
-              className="default-video-size rounded-lg object-cover"
-              autoPlay={false}
-              onEnded={onVideoEnd && onVideoEnd}
-            >
-              <source src={videoUrl} type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
+          <>
+            <div className="relative">
+              <video
+                ref={videoRef}
+                onTimeUpdate={onTimeUpdate}
+                preload="none"
+                muted={isMutedRef.current}
+                playsInline
+                loop
+                className="default-video-size rounded-lg object-cover"
+                autoPlay={false}
+                onEnded={onVideoEnd && onVideoEnd}
+              >
+                <source src={videoUrl} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
 
-            {canPlayVideo && (
-              <>
-                <Sound muted={videoRef.current?.muted} onClick={onSoundClick} />
+              {canPlayVideo && (
+                <>
+                  <Sound
+                    muted={videoRef.current?.muted}
+                    onClick={onSoundClick}
+                  />
 
-                <Time currentTime={videoRef.current?.currentTime || 0} />
-
-                <ProgressBar
-                  progress={progress}
-                  onProgressUpdate={onManualProgressUpdate}
-                />
-              </>
-            )}
-          </div>
+                  <Time currentTime={videoRef.current?.currentTime || 0} />
+                </>
+              )}
+            </div>
+          </>
         </Suspense>
+
+        {canPlayVideo && (
+          <ProgressBar
+            progress={progress}
+            onProgressUpdate={onManualProgressUpdate}
+          />
+        )}
 
         <Thumbnail
           thumbnailUrl={thumbnailUrl}
           // TODO: add a proper alt (maybe from the video title)
           alt="video thumbnail"
           className={twMerge(
-            'delay-10 duration-50 absolute transition-all duration-300 ease-[cubic-bezier(.05,0,0,1)]',
+            'absolute transition-all duration-300 ease-[cubic-bezier(.05,0,0,1)]',
             canPlayVideo ? 'opacity-0' : '',
           )}
         />
