@@ -7,6 +7,7 @@ export default function Home() {
   return (
     <div className="mt-[--header-height] flex flex-row flex-wrap justify-center gap-2 p-5 lg:justify-start">
       {MOCK_VIDEOS.map((video) => (
+        // TODO: we can implement each callback with proper functions
         <VideoPlayer
           onVideoEnd={() => console.log('video ended')}
           onVideoStart={() => console.log('video started')}
@@ -16,6 +17,9 @@ export default function Home() {
           mode="interactive"
           {...video}
         />
+
+        // Or as "static" mode
+        // <VideoPlayer key={video.id} mode="static" {...video} />
       ))}
     </div>
   );

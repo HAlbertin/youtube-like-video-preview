@@ -13,7 +13,12 @@ type Props = Partial<{
 
 export const useVideo = ({ onVideoStart, onVideoResume }: Props) => {
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Track the latest progress to resume the video from the same position
   const latestProgress = useRef(0);
+  // Track if the progress was updated manually
+  const manualUpdated = useRef(false);
+
   const [canPlayVideo, setCanPlayVideo] = useState(false);
 
   const debounceSet = debounce(() => setCanPlayVideo(true), 200);
@@ -55,7 +60,9 @@ export const useVideo = ({ onVideoStart, onVideoResume }: Props) => {
   useEffect(() => {
     if (!videoRef.current) return;
 
-    canPlayVideo ? playVideo(latestProgress.current) : pauseVideo();
+    canPlayVideo
+      ? playVideo(manualUpdated.current ? latestProgress.current : 0)
+      : pauseVideo();
   }, [canPlayVideo, pauseVideo, playVideo]);
 
   return {
@@ -66,5 +73,6 @@ export const useVideo = ({ onVideoStart, onVideoResume }: Props) => {
     cannotPlayVideo,
     latestProgress,
     playVideo,
+    manualUpdated,
   };
 };

@@ -1,6 +1,6 @@
 'use client';
 
-import { memo, Suspense, useCallback, useRef, useState } from 'react';
+import { memo, Suspense, useCallback, useState } from 'react';
 import { Thumbnail } from '../thumbnail';
 
 import { ProgressBar } from '../progress-bar';
@@ -34,14 +34,12 @@ export const Preview = memo(
       cannotPlayVideo,
       debounceSet,
       videoRef,
+      manualUpdated,
       latestProgress,
     } = useVideo({
       onVideoStart,
       onVideoResume,
     });
-
-    // Track if the progress was updated manually
-    const manualUpdated = useRef(false);
 
     // Track the progress to set into the progress bar
     const [progress, setProgress] = useState(0);
@@ -79,11 +77,18 @@ export const Preview = memo(
           newProgress,
           videoRef.current.duration,
         );
+
+        // Update the video time
         videoRef.current.currentTime = newTime;
+
+        // Update the latest progress to resume later (if needed)
         latestProgress.current = newTime;
         manualUpdated.current = true;
 
+        // Update the progress bar UI
         setProgress(newProgress);
+
+        // Callback video seek
         onVideoSeek && onVideoSeek();
       },
       // Disabling since videoRef is a ref and it's not going to change
@@ -129,6 +134,7 @@ export const Preview = memo(
 
         <Thumbnail
           thumbnailUrl={thumbnailUrl}
+          // TODO: add a proper alt (maybe from the video title)
           alt="video thumbnail"
           className={twMerge(
             'delay-10 duration-50 absolute transition-all duration-300 ease-[cubic-bezier(.05,0,0,1)]',
