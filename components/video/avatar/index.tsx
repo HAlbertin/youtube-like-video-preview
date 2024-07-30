@@ -1,4 +1,17 @@
+import { twMerge } from 'tailwind-merge';
+
 // TODO: receive avatar as a prop, or use a default one if not provided
-export const Avatar = () => {
-  return <div className="h-10 w-10 rounded-full bg-secondary-color" />;
+type Props = {
+  className?: string;
+};
+
+export const Avatar = ({ className }: Props) => {
+  return (
+    <div
+      className={twMerge(
+        'bg-secondary-color h-10 w-10 rounded-full',
+        className,
+      )}
+    />
+  );
 };

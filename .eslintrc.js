@@ -22,9 +22,16 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
     'plugin:prettier/recommended',
+    'plugin:@tanstack/eslint-plugin-query/recommended',
     'plugin:react-hooks/recommended',
   ],
-  plugins: ['prettier', '@typescript-eslint', 'react', 'react-hooks'],
+  plugins: [
+    'prettier',
+    '@tanstack/query',
+    '@typescript-eslint',
+    'react',
+    'react-hooks',
+  ],
   rules: {
     // JavaScript rules
     'prefer-const': 'warn',

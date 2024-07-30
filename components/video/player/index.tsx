@@ -16,7 +16,7 @@ export const VideoPlayer = (props: Props) => {
     props;
 
   return (
-    <div className="delay-50 flex flex-col gap-2 rounded-lg transition ease-in-out hover:cursor-pointer hover:bg-hover-color">
+    <div className="delay-50 hover:bg-hover-color flex flex-col gap-2 rounded-lg transition ease-in-out hover:cursor-pointer">
       {mode === 'interactive' ? (
         <Preview
           onVideoEnd={props.onVideoEnd}

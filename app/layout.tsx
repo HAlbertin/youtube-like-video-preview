@@ -3,6 +3,7 @@ import { Roboto } from 'next/font/google';
 import './globals.css';
 import { Header } from '@/components/header';
 import { twMerge } from 'tailwind-merge';
+import Providers from './providers';
 
 const roboto = Roboto({
   subsets: ['latin'],
@@ -22,9 +23,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={twMerge(roboto.className, 'bg-background')}>
-        <Header />
+        <Providers>
+          <Header />
 
-        {children}
+          {children}
+        </Providers>
       </body>
     </html>
   );

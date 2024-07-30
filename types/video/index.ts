@@ -21,3 +21,18 @@ export type InteractiveProps = CommonProps & {
 export type StaticProps = CommonProps & {
   mode: 'static';
 };
+
+// TODO: generally this type comes from Swagger or other API documentation
+export interface VideoProps {
+  id: string;
+  title: string;
+  thumbnailUrl: string;
+  duration: string;
+  uploadTime: string;
+  views: string;
+  author: string;
+  videoUrl: string;
+  description: string;
+  subscriber: string;
+  isLive: boolean;
+}

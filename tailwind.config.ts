@@ -16,6 +16,7 @@ const config: Config = {
         'secondary-color': 'var(--secondary-color)',
         'hover-color': 'var(--hover-color)',
         'text-secondary': 'var(--text-secondary)',
+        loading: 'var(--loading)',
         background: 'var(--background)',
       },
     },
