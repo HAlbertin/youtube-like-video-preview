@@ -4,7 +4,7 @@ export const SkeletonVideo = () => {
   return (
     <div className="flex flex-col animate-pulse gap-2">
       <div className="flex flex-col rounded-lg md:p-2">
-        <div className="inline-block bg-secondary-color h-[14rem] w-[21rem] rounded-lg object-cover opacity-100 sm:h-[14rem] sm:w-[21rem] md:h-[12rem] md:w-[24rem] lg:h-[11rem] lg:w-[20rem]" />
+        <div className="inline-block bg-secondary-color default-video-size rounded-lg object-cover opacity-100" />
       </div>
 
       <div className="flex flex-row gap-2 px-2 pb-2">

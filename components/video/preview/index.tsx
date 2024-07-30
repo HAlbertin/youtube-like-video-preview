@@ -119,7 +119,7 @@ export const Preview = memo(
               preload="none"
               muted={isMutedRef.current}
               playsInline
-              className="h-[14rem] w-[21rem] rounded-lg object-cover sm:h-[14rem] sm:w-[21rem] md:h-[12rem] md:w-[24rem] lg:h-[11rem] lg:w-[20rem]"
+              className="default-video-size rounded-lg object-cover"
               autoPlay={false}
               onEnded={onVideoEnd && onVideoEnd}
             >

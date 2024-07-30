@@ -33,7 +33,7 @@ export const Thumbnail = ({
       width={416}
       height={224}
       className={twMerge(
-        'inline-block h-[14rem] w-[21rem] rounded-lg object-cover opacity-100 sm:h-[14rem] sm:w-[21rem] md:h-[12rem] md:w-[24rem] lg:h-[11rem] lg:w-[20rem]',
+        'inline-block default-video-size rounded-lg object-cover opacity-100',
         className,
       )}
       onError={onError}
