@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
 import './globals.css';
 import { Header } from '@/components/header';
+import { twMerge } from 'tailwind-merge';
 
 const roboto = Roboto({
   subsets: ['latin'],
@@ -20,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${roboto.className} bg-[#0f0f0f]`}>
+      <body className={twMerge(roboto.className, 'bg-background')}>
         <Header />
 
         {children}

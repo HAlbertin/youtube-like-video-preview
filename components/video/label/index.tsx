@@ -12,7 +12,7 @@ export const VideoLabel = ({
   return (
     <p
       className={twMerge(
-        'truncate whitespace-normal text-sm text-slate-400',
+        'truncate whitespace-normal text-sm text-text-secondary',
         className,
       )}
     >

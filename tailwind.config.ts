@@ -11,8 +11,16 @@ const config: Config = {
       height: {
         'header-height': 'var(--header-height)',
       },
+      colors: {
+        'primary-color': 'var(--primary-color)',
+        'secondary-color': 'var(--secondary-color)',
+        'hover-color': 'var(--hover-color)',
+        'text-secondary': 'var(--text-secondary)',
+        background: 'var(--background)',
+      },
     },
   },
   plugins: [],
 };
+
 export default config;

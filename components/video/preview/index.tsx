@@ -108,7 +108,7 @@ export const Preview = memo(
       <div
         onMouseOver={debounceSet.trigger}
         onMouseLeave={handleMouseLeave}
-        className="delay-50 flex flex-col rounded-lg transition ease-in-out hover:cursor-pointer hover:bg-slate-800 md:p-2"
+        className="flex flex-col rounded-lg md:p-2"
       >
         {/* TODO: add proper skeleton loading */}
         <Suspense fallback={<div>Loading...</div>}>

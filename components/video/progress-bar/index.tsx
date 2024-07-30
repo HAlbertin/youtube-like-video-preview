@@ -14,10 +14,10 @@ export const ProgressBar = ({ onProgressUpdate, progress }: Props) => {
   return (
     <div
       onClick={onClick}
-      className="progress-bar absolute bottom-0 h-2 w-full rounded-lg bg-gray-300"
+      className="progress-bar absolute bottom-0 h-2 w-full rounded-full bg-secondary-color"
     >
       <div
-        className="absolute bottom-0 h-2 rounded-lg bg-red-400"
+        className="absolute bottom-0 h-2 rounded-full bg-primary-color"
         style={{ width: `${progress}%` }}
       />
       <div
@@ -26,7 +26,7 @@ export const ProgressBar = ({ onProgressUpdate, progress }: Props) => {
 
       {/* TODO: add a track ball, need to fix because it's too far to the right, needs to center */}
       {/* <div
-        className="absolute -bottom-3 h-4 w-4 -translate-y-1/2 transform rounded-full bg-red-400"
+        className="absolute -bottom-3 h-4 w-4 -translate-y-1/2 transform rounded-full bg-primary-color"
         style={{ left: `${progress}%` }}
       /> */}
     </div>

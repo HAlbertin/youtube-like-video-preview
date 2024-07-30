@@ -22,7 +22,6 @@ export const VideoList = () => {
         // Or as "static" mode
         // <VideoPlayer key={video.id} mode="static" {...video} />
       ))}
-      ;
     </div>
   );
 };
